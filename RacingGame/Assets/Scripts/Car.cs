@@ -6,8 +6,8 @@ public class Car : MonoBehaviour {
     public JointSpring m_springJoint;
     public float m_Mass;
     public float m_SuspensionDistance;
-    public WheelFrictionCurve m_ForwardFriction;
-    public WheelFrictionCurve m_SidewaysFriction;
+    public WheelData m_ForwardFrictionData;
+    public WheelData m_SidwaysFrictionData;
     public WheelCollider[] drivers;
     public float mt;
 
@@ -19,16 +19,17 @@ public class Car : MonoBehaviour {
             wc.suspensionSpring = m_springJoint;
             wc.mass = m_Mass;
             wc.suspensionDistance = m_SuspensionDistance;
-            wc.forwardFriction = m_ForwardFriction;
-            wc.sidewaysFriction = m_SidewaysFriction;
+            wc.forwardFriction = m_ForwardFrictionData.setupWheelFriction();
+            wc.sidewaysFriction = m_SidwaysFrictionData.setupWheelFriction();
         }
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKey(KeyCode.UpArrow))
         {
             foreach (WheelCollider wc in drivers)
             {
+                Debug.Log("driving wheels");
                 wc.motorTorque = mt;
             }
         }
