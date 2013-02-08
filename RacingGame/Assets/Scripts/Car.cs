@@ -27,12 +27,38 @@ public class Car : MonoBehaviour {
     {
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            foreach (WheelCollider wc in drivers)
+            foreach (WheelCollider wc in wheels)
             {
-                Debug.Log("driving wheels");
                 wc.motorTorque = mt;
             }
         }
-
+        if (Input.GetKey(KeyCode.DownArrow))
+        {
+            foreach (WheelCollider wc in wheels)
+            {
+                wc.motorTorque = mt*(-1);
+            }
+        }
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            foreach (WheelCollider wc in wheels)
+            {
+                wc.steerAngle = wc.steerAngle+(-90 / rigidbody.velocity.magnitude);
+            }
+        }
+        else if (Input.GetKey(KeyCode.RightArrow))
+        {
+            foreach (WheelCollider wc in wheels)
+            {
+                wc.steerAngle = wc.steerAngle+( 90 / rigidbody.velocity.magnitude);
+            }
+        }
+        else
+        {
+            foreach (WheelCollider wc in wheels)
+            {
+                wc.steerAngle = 0;
+            }
+        }
     }
 }
