@@ -13,8 +13,7 @@ public class Car : MonoBehaviour {
 
 
 	// Update is called once per frame
-    void Start()
-    {
+    void Start(){
         foreach(WheelCollider wc in wheels){
             wc.suspensionSpring = m_springJoint;
             wc.mass = m_Mass;
@@ -25,8 +24,7 @@ public class Car : MonoBehaviour {
     }
     void Update()
     {
-        if (Input.GetKey(KeyCode.UpArrow))
-        {
+        if (Input.GetKey(KeyCode.UpArrow)){
             foreach (WheelCollider wc in wheels)
             {
                 wc.motorTorque = mt;
@@ -34,23 +32,23 @@ public class Car : MonoBehaviour {
         }
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            foreach (WheelCollider wc in wheels)
+            foreach (WheelCollider wc in drivers)
             {
                 wc.motorTorque = mt*(-1);
             }
         }
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            foreach (WheelCollider wc in wheels)
+            foreach (WheelCollider wc in drivers)
             {
-                wc.steerAngle = wc.steerAngle+(-90 / rigidbody.velocity.magnitude);
+                wc.steerAngle = wc.steerAngle - 1;//(-90 / rigidbody.velocity.magnitude);
             }
         }
         else if (Input.GetKey(KeyCode.RightArrow))
         {
             foreach (WheelCollider wc in wheels)
             {
-                wc.steerAngle = wc.steerAngle+( 90 / rigidbody.velocity.magnitude);
+                wc.steerAngle = wc.steerAngle+1;//( 90 / rigidbody.velocity.magnitude);
             }
         }
         else
