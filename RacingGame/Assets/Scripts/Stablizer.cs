@@ -3,9 +3,9 @@ using System.Collections;
 
 public class Stablizer : MonoBehaviour
 {
-    public WheelCollider WheelL;
-    public WheelCollider WheelR;
-    public float AntiRoll = 5000.0f;
+    public WheelCollider m_WheelL;
+    public WheelCollider m_WheelR;
+    public float m_AntiRoll = 5000.0f;
 
     // Use this for initialization
     void Start()
@@ -19,22 +19,22 @@ public class Stablizer : MonoBehaviour
         float travelL = 1.0f;
         float travelR = 1.0f;
 
-        bool groundedL = WheelL.GetGroundHit(out hit);
-        bool groundedR = WheelR.GetGroundHit(out hit);
+        bool groundedL = m_WheelL.GetGroundHit(out hit);
+        bool groundedR = m_WheelR.GetGroundHit(out hit);
 
         if (groundedL)
-            travelL = (-WheelL.transform.InverseTransformPoint(hit.point).y - WheelL.radius)
-                      / WheelL.suspensionDistance;
+            travelL = (-m_WheelL.transform.InverseTransformPoint(hit.point).y - m_WheelL.radius)
+                      / m_WheelL.suspensionDistance;
 
         if (groundedR)
-            travelR = (-WheelR.transform.InverseTransformPoint(hit.point).y - WheelR.radius)
-                      / WheelR.suspensionDistance;
+            travelR = (-m_WheelR.transform.InverseTransformPoint(hit.point).y - m_WheelR.radius)
+                      / m_WheelR.suspensionDistance;
 
-        float antiRollForce = (travelL - travelR) * AntiRoll;
+        float antiRollForce = (travelL - travelR) * m_AntiRoll;
 
         if (groundedL && !groundedR)
-            rigidbody.AddForceAtPosition(WheelL.transform.up * -antiRollForce, WheelL.transform.position);
+            rigidbody.AddForceAtPosition(m_WheelL.transform.up * -antiRollForce, m_WheelL.transform.position);
         if (groundedR && !groundedL)
-            rigidbody.AddForceAtPosition(WheelR.transform.up * antiRollForce, WheelR.transform.position);
+            rigidbody.AddForceAtPosition(m_WheelR.transform.up * antiRollForce, m_WheelR.transform.position);
     }
 }
