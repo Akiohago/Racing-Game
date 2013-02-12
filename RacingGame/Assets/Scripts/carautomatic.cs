@@ -5,13 +5,14 @@
 
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(AudioSource))]
 
 public class carautomatic : MonoBehaviour
 {
     // All Wheel components down the hierarchy
-    public WheelSet[] wheels;
+    public List<WheelSet> wheels;
     // is car AI Control?
     public bool aiControl = true;
 
@@ -44,10 +45,10 @@ public class carautomatic : MonoBehaviour
     // using the defined Max and Min Engine RPM, the script can determine what gear the
     // car needs to be in.
     public float EngineTorque = 400.0f;
-    public float MaxRPM = 600.0f;
-    public float MinRPM = 1000.0f;
+    public float MaxRPM = 1000.0f;
+    public float MinRPM = 600.0f;
     public float RPMLimit = 2000.0f;
-    private float EngineRPM = 0.0f;
+    public float EngineRPM = 0.0f;
     private float WheelRPM = 0.0f;
     private float steer = 0.0f;
 
@@ -74,13 +75,29 @@ public class carautomatic : MonoBehaviour
 
     public void Start()
     {
+        foreach (Transform child in transform)
+        {
+            if(child.gameObject.name.Contains("wheel")){
+                if (wheels == null)
+                    wheels = new List<WheelSet>();
+                WheelSet wheel=new WheelSet();
+                if(child.gameObject.name.Contains("f")){
+                    wheel.steered = true;
+                }
+                wheel.wheelgraphic=child;
+                wheel.powered = true;
+                wheel.handbraked = true;
+                wheel.wheelaxle = child;
+                wheels.Add(wheel);
+            }
+        }
         // wheels enumerator
         if (wheels != null)
         {
-            WheelsN = wheels.Length;
+            WheelsN = wheels.Count;
+
             foreach (WheelSet w in wheels)
             {
-
                 w.originalRotation = w.wheelgraphic.rotation;
                 w.originalBrakeRotation = w.wheelaxle.rotation;
 
@@ -111,16 +128,13 @@ public class carautomatic : MonoBehaviour
             }
             // mass center adjustment 
             rigidbody.centerOfMass = massCorrection;
-
-
-
             Debug.Log(rigidbody.centerOfMass);
         }
         else
         {
-            Debug.Log("No wheels assigned!");
+            Debug.LogError("No wheels assigned!");
         }
-        if (MWheelsN == null)
+        if (MWheelsN == 0)
         {
             Debug.Log("No motor wheels assigned!");
         }
@@ -155,18 +169,18 @@ if (!aiControl) {
 	foreach( WheelSet NextWheel in wheels )
 	{
 		if ( NextWheel.powered) {
-		         SumRPM -= NextWheel.wCollider.rpm;
+		         SumRPM = NextWheel.wCollider.rpm;
 		
 		if( NextWheel.wCollider.isGrounded )
 				 isCarGrounded = true; 
 	    }		 
 	}
-           
-    if (MWheelsN!=0) {
-    	
-	     EngineRPM = WheelRPM * GearRatio[CurrentGear];
-         WheelRPM  =  SumRPM  / MWheelsN ;
-    }     
+
+    if (MWheelsN != 0)
+    {
+        WheelRPM = SumRPM / MWheelsN;
+        EngineRPM = WheelRPM * GearRatio[CurrentGear];
+    }
     else WheelRPM = 0;
     
 	ShiftGears();
@@ -190,9 +204,9 @@ if (!aiControl) {
 	
 		// motor & brake ****************************************************************
 		
-	var drTorque = 0.0f;
-	var brTorque = 0.0f;
-	var GearTorque = EngineTorque / GearRatio[CurrentGear];
+	float drTorque = 0.0f;
+	float brTorque = 0.0f;
+	float GearTorque = EngineTorque / GearRatio[CurrentGear];
     
 	if( Mathf.Abs(gasAmount) > 0.1f ) // if gas is pressed
 	{
@@ -208,7 +222,7 @@ if (!aiControl) {
 	// steering **************************************************************************
     steer = steerAmount * minSteer;	
 	// find maximum steer angle (dependent on car velocity)
-	var limSteer = Mathf.Lerp( minSteer, maxSteer, kmPerH / highSpeed );
+	float limSteer = Mathf.Lerp( minSteer, maxSteer, kmPerH / highSpeed );
     steer = limSteer * steerAmount;
 
     // rolling ***************************************************************************
@@ -294,7 +308,7 @@ public void UpdateWheel(int num, float handbrake, float motion, float brake, flo
 
     if (wheels[num].powered)
     {
-        wheels[num].wCollider.motorTorque = -motion;
+        wheels[num].wCollider.motorTorque += motion;
     }
 
     // increase the rotation value by the rotation speed (in degrees per second)
