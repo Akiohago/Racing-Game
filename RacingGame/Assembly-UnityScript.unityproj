@@ -5,11 +5,11 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{F760AE89-BE88-60DD-B60A-9B4FC79CB972}</ProjectGuid>
+	<ProjectGuid>{C20C3244-A0CE-7A8D-3340-BAE5ADB0A1E3}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
-	<AssemblyName>Assembly-CSharp</AssemblyName>
+	<AssemblyName>Assembly-UnityScript</AssemblyName>
 	<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
 	<FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -44,11 +44,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\Car.cs" />
-     <Compile Include="Assets\Scripts\Stablizer.cs" />
-     <Compile Include="Assets\Scripts\WheelData.cs" />
-     <Compile Include="Assets\Scripts\WheelSet.cs" />
-     <Compile Include="Assets\Scripts\carautomatic.cs" />
+     <Compile Include="Assets\Scripts\carautomatic_205.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
