@@ -3,6 +3,7 @@ using System.Collections;
 
 [RequireComponent(typeof(Rigidbody))]
 public class RigidBodyCar : MonoBehaviour {
+	private static Rigidbody playerCar;
 	public float m_maxSpeed;
 	public float m_acceleration;
 	public float m_turnSpeed;
@@ -17,7 +18,9 @@ public class RigidBodyCar : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-	
+		if(tag=="Player"){
+			playerCar=rigidbody;
+		}
 	}
 	
 	// Update is called once per frame
@@ -35,13 +38,20 @@ public class RigidBodyCar : MonoBehaviour {
 			stop ();
 		}
 	}
+	public static string s_speed{
+		get{
+			return ""+playerCar.velocity.magnitude;
+		}
+	}
 	protected void gas(){
-		rigidbody.velocity=rigidbody.velocity+(transform.forward*m_gasAmount*(m_acceleration*Time.deltaTime));
+		if(m_maxSpeed<rigidbody.velocity.magnitude){
+			rigidbody.velocity=rigidbody.velocity+(transform.forward*m_gasAmount*(m_acceleration*Time.deltaTime));
+		}
 	}
 	protected void stop(){
 		rigidbody.velocity=rigidbody.velocity*m_breakAmount;
 	}
 	protected void steer(){
-		transform.RotateAround(new Vector3(0,1,0),(m_steerAmount*Time.deltaTime));
+		transform.RotateAround(new Vector3(0,1,0),(m_steerAmount*Time.deltaTime*m_turnSpeed));
 	}
 }
