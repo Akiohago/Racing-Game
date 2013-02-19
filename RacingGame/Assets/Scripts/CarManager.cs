@@ -2,12 +2,14 @@ using UnityEngine;
 using System.Collections;
 
 public class CarManager : MonoBehaviour {
-	
+
+    public static CarManager sm_carManager;
 	public GameObject[] m_cars;
 	
 	// Use this for initialization
 	void Start () {
 		int carIndex;
+        sm_carManager = this;
 		if(PlayerPrefs.HasKey("selectedCar")){
 			carIndex=PlayerPrefs.GetInt("selectedCar");
 		}else{
@@ -21,4 +23,10 @@ public class CarManager : MonoBehaviour {
 	void Update () {
 	
 	}
+    public void respawnCar(GameObject car)
+    {
+        Debug.Log("respawning");
+        Instantiate(car, car.transform.position, Quaternion.identity);
+        Destroy(car);
+    }
 }
