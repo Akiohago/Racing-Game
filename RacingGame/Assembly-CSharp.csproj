@@ -52,6 +52,7 @@
      <Compile Include="Assets\Scripts\deprecated\WheelData.cs" />
      <Compile Include="Assets\Scripts\deprecated\WheelSet.cs" />
      <Compile Include="Assets\Scripts\deprecated\carautomatic.cs" />
+     <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
