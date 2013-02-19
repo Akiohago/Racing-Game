@@ -44,7 +44,7 @@ public class RigidBodyCar : MonoBehaviour {
 		}
 	}
 	protected void gas(){
-		if(m_maxSpeed<rigidbody.velocity.magnitude){
+		if(m_maxSpeed>rigidbody.velocity.magnitude){
 			rigidbody.velocity=rigidbody.velocity+(transform.forward*m_gasAmount*(m_acceleration*Time.deltaTime));
 		}
 	}
