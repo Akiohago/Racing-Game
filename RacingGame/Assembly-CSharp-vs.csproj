@@ -46,7 +46,9 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\CarManager.cs" />
      <Compile Include="Assets\Scripts\CarSelector.cs" />
+     <Compile Include="Assets\Scripts\PathTriggers.cs" />
      <Compile Include="Assets\Scripts\RigidBodyCar.cs" />
+     <Compile Include="Assets\Scripts\aiCar.cs" />
      <Compile Include="Assets\Scripts\deprecated\Car.cs" />
      <Compile Include="Assets\Scripts\deprecated\Stablizer.cs" />
      <Compile Include="Assets\Scripts\deprecated\WheelData.cs" />

@@ -15,13 +15,15 @@ public class RigidBodyCar : MonoBehaviour {
     private float m_maxDownTime=2f;
     private float m_downTimer;
 	protected float m_currentSpeed;
-	
+    protected Vector3 m_goalDir;
+
 	
 	// Use this for initialization
 	void Start () {
 		if(tag=="Player"){
 			playerCar=rigidbody;
 		}
+        m_goalDir = Vector3.forward;
 	}
 	
 	// Update is called once per frame
@@ -38,7 +40,11 @@ public class RigidBodyCar : MonoBehaviour {
 		if(m_brakeActive){
 			stop ();
 		}
-        if (1<vectorValueCompare(transform.up, Vector3.up))
+        rightCheck();
+
+	}
+    protected void rightCheck(){
+        if (1 < vectorValueCompare(transform.up, Vector3.up))
         {
             if (m_downTimer > 0)
             {
@@ -46,14 +52,15 @@ public class RigidBodyCar : MonoBehaviour {
             }
             else
             {
-                CarManager.sm_carManager.respawnCar(gameObject);
+                CarManager.sm_carManager.respawnCar(gameObject, m_goalDir);
             }
         }
         else
         {
             m_downTimer = m_maxDownTime;
         }
-	}
+
+    }
 	public static string s_speed{
 		get{
 			return ""+playerCar.velocity.magnitude;
