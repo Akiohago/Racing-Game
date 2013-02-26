@@ -18,7 +18,9 @@ public class CarSelector : MonoBehaviour {
 			if(Physics.Raycast(ray, out hitInfo,100)){
 				Debug.Log(hitInfo.collider.gameObject.name+ "tapped");
 				for(int i=0; i<m_cars.Length; i++){
-					if(hitInfo.collider.gameObject.transform){
+                    Debug.Log(hitInfo.collider.gameObject.name);
+					if(hitInfo.collider.gameObject.transform==m_cars[i].transform){
+                        Debug.Log(i + " clicked");
 						PlayerPrefs.SetInt("selectedCar",i);
 						Application.LoadLevel("GamePlay");
 					}

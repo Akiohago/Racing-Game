@@ -12,6 +12,7 @@ public class CarManager : MonoBehaviour {
         sm_carManager = this;
 		if(PlayerPrefs.HasKey("selectedCar")){
 			carIndex=PlayerPrefs.GetInt("selectedCar");
+            Debug.Log(carIndex + "car num");
 		}else{
 			carIndex=0;
 		}
