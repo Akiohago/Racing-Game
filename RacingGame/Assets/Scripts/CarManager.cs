@@ -16,10 +16,13 @@ public class CarManager : MonoBehaviour {
 		}else{
 			carIndex=0;
 		}
-		GameObject car= (GameObject)Instantiate(m_cars[carIndex]);
-		car.tag="Player";
-        foreach (GameObject aCar in m_cars){
-            spawnAIcar(aCar);
+		for(int i=0;i<m_cars.Length;i++){ //each (GameObject aCar in m_cars){
+			if(i==carIndex){
+				GameObject car= (GameObject)Instantiate(m_cars[carIndex]);
+		        car.tag="Player";
+			}else{
+            	spawnAIcar(m_cars[i]);
+			}
         }
 	}
     void spawnAIcar(GameObject car){
