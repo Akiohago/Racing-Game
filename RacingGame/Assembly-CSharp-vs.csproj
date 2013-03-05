@@ -37,13 +37,18 @@
     <Reference Include="System.XML" />
 	<Reference Include="System.Core" />
 	<Reference Include="UnityEngine">
-	  <HintPath>/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEngine.dll</HintPath>
+	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
 	</Reference>
 	<Reference Include="UnityEditor">
-	  <HintPath>/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEditor.dll</HintPath>
+	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Car_Select.cs" />
+     <Compile Include="Assets\Item_Box.cs" />
+     <Compile Include="Assets\Loser.cs" />
+     <Compile Include="Assets\NewBehaviourScript.cs" />
+     <Compile Include="Assets\Placement.cs" />
      <Compile Include="Assets\Scripts\CarManager.cs" />
      <Compile Include="Assets\Scripts\CarSelector.cs" />
      <Compile Include="Assets\Scripts\PathTriggers.cs" />
@@ -54,6 +59,9 @@
      <Compile Include="Assets\Scripts\deprecated\WheelData.cs" />
      <Compile Include="Assets\Scripts\deprecated\WheelSet.cs" />
      <Compile Include="Assets\Scripts\deprecated\carautomatic.cs" />
+     <Compile Include="Assets\Speedomitor.cs" />
+     <Compile Include="Assets\Start_Menu.cs" />
+     <Compile Include="Assets\Winner.cs" />
      <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
