@@ -4,7 +4,7 @@ using System.Collections;
 public enum Direction { Left, Right, Forward }
 
 public class aiCar : RigidBodyCar {
-    private Direction m_dir;
+    public Direction m_dir;
 
     void Start()
     {
@@ -13,38 +13,30 @@ public class aiCar : RigidBodyCar {
         m_gasAmount = 1f;
     }
 
-	// Update is called once per frame
 	void Update () {
+		if(Mathf.Abs(transform.rotation.eulerAngles.y-m_goalDir.y)>5f){
+			if(transform.rotation.eulerAngles.y<m_goalDir.y){
+				m_dir=Direction.Right;
+			}else{
+				m_dir=Direction.Left;
+			}
+		}else{
+			m_dir=Direction.Forward;
+		}
         switch (m_dir){
             case Direction.Left:
-                if (transform.forward != m_goalDir){
-                    m_steerAmount = -1;
-                }
-                else{
-                    m_dir = Direction.Forward;
-                }
+                m_steerAmount = -1;
+				steer();
                 break;
             case Direction.Right:
-                if (transform.forward != m_goalDir){
-                    m_steerAmount = 1;
-                }else{
-                    m_dir = Direction.Forward;
-                }
-                break;
+                m_steerAmount = 1;
+				steer();
+			break;
             default:
-                if (m_goalDir == transform.forward){
-                    m_dir = Direction.Left;
-                }
-                gas();
+            	m_steerAmount=0;
+				gas();
                 break;
         }
         rightCheck();
-	}
-    void OnTriggerEnter(Collider other){
-        PathTriggers pt = other.gameObject.GetComponent<PathTriggers>();
-        if (pt != null){
-            m_dir = pt.m_turnDir;
-            m_goalDir = pt.m_goalDir;
-        }
-    }
+	}	
 }

@@ -5,10 +5,13 @@ public class CarManager : MonoBehaviour {
 
     public static CarManager sm_carManager;
 	public GameObject[] m_cars;
+	public string[] m_places;
+	private int m_carsFinished=0;
 	
 	// Use this for initialization
 	void Start () {
 		int carIndex;
+		m_places=new string[m_cars.Length];
         sm_carManager = this;
 		if(PlayerPrefs.HasKey("selectedCar")){
 			carIndex=PlayerPrefs.GetInt("selectedCar");
@@ -24,6 +27,7 @@ public class CarManager : MonoBehaviour {
             	spawnAIcar(m_cars[i]);
 			}
         }
+		
 	}
     void spawnAIcar(GameObject car){
         Debug.Log("spawning"+ car.name);
@@ -52,11 +56,20 @@ public class CarManager : MonoBehaviour {
 	void Update () {
 	
 	}
-    public void respawnCar(GameObject car, Vector3 dir)
+    public void respawnCar(GameObject car)
     {
         Debug.Log("respawning");
-        GameObject nCar=(GameObject)Instantiate(car, car.transform.position, Quaternion.identity);
-        nCar.transform.Rotate(dir);
+		RigidBodyCar carInfo=(RigidBodyCar)car.GetComponent<RigidBodyCar>();
+        GameObject nCar=(GameObject)Instantiate(car, carInfo.m_lastCheckPoint, Quaternion.Euler(carInfo.m_goalDir));
+		nCar.name=car.name;
         Destroy(car);
     }
+	public void place(GameObject car){
+		m_places[m_carsFinished]=car.name;
+		Destroy(car);
+		m_carsFinished++;
+		if(m_carsFinished==m_places.Length){
+			Application.LoadLevel("Start_Menu");
+		}
+	}
 }

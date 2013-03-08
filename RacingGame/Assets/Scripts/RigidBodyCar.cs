@@ -8,14 +8,16 @@ public class RigidBodyCar : MonoBehaviour {
 	public float m_acceleration;
 	public float m_turnSpeed;
 	public float m_breakAmount;
+	
+	public Vector3 m_lastCheckPoint;
+	public Vector3 m_goalDir;
 
 	protected float m_gasAmount;
 	protected float m_steerAmount;
 	protected bool m_brakeActive;
-    private float m_maxDownTime=2f;
+    private float m_maxDownTime=5f;
     private float m_downTimer;
 	protected float m_currentSpeed;
-    protected Vector3 m_goalDir;
 
 	
 	// Use this for initialization
@@ -44,7 +46,7 @@ public class RigidBodyCar : MonoBehaviour {
 
 	}
     protected void rightCheck(){
-        if (1 < vectorValueCompare(transform.up, Vector3.up))
+        if (1 < vectorValueCompare(transform.up, Vector3.up)||rigidbody.velocity.magnitude<.01f)
         {
             if (m_downTimer > 0)
             {
@@ -52,7 +54,7 @@ public class RigidBodyCar : MonoBehaviour {
             }
             else
             {
-                CarManager.sm_carManager.respawnCar(gameObject, m_goalDir);
+               CarManager.sm_carManager.respawnCar(gameObject);
             }
         }
         else
@@ -82,4 +84,15 @@ public class RigidBodyCar : MonoBehaviour {
         float diff = Mathf.Abs(vec1.x - vec2.x) + Mathf.Abs(vec1.y - vec2.y) + Mathf.Abs(vec1.z - vec2.z);
         return diff;
     }
+	void OnTriggerEnter(Collider other){
+		if(other.gameObject.tag=="Finishline"){
+			Debug.Log(gameObject.name +" completed");
+			CarManager.sm_carManager.place(gameObject);
+		}
+        PathTriggers pt = other.gameObject.GetComponent<PathTriggers>();
+        if (pt != null){
+            m_goalDir = pt.m_goalDir;
+        }
+    }
+
 }
