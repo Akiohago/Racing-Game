@@ -85,7 +85,8 @@ public class RigidBodyCar : MonoBehaviour {
         return diff;
     }
 	void OnTriggerEnter(Collider other){
-		if(other.gameObject.tag=="Finishline"){
+		
+		if(other.gameObject.tag=="FinishLine"){
 			Debug.Log(gameObject.name +" completed");
 			CarManager.sm_carManager.place(gameObject);
 		}
