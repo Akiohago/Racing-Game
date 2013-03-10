@@ -9,6 +9,10 @@ public class RigidBodyCar : MonoBehaviour {
 	public float m_turnSpeed;
 	public float m_breakAmount;
 	
+	public AudioClip m_accelerationAudio;
+	public AudioClip m_turnAudio;
+	public AudioClip m_breakAudio;
+	
 	public Vector3 m_lastCheckPoint;
 	public Vector3 m_goalDir;
 
@@ -72,12 +76,24 @@ public class RigidBodyCar : MonoBehaviour {
 		if(m_maxSpeed>rigidbody.velocity.magnitude){
 			rigidbody.velocity=rigidbody.velocity+(transform.forward*m_gasAmount*(m_acceleration*Time.deltaTime));
 		}
+		audio.clip=m_accelerationAudio;
+		if(m_accelerationAudio.isReadyToPlay){
+			audio.Play();
+		}
 	}
 	protected void stop(){
 		rigidbody.velocity=rigidbody.velocity*m_breakAmount;
+		audio.clip=m_breakAudio;
+		if(m_breakAudio.isReadyToPlay){
+			audio.Play();
+		}
 	}
 	protected void steer(){
 		transform.RotateAround(new Vector3(0,1,0),(m_steerAmount*Time.deltaTime*m_turnSpeed));
+		audio.clip=m_turnAudio;
+		if(m_turnAudio.isReadyToPlay){
+			audio.Play();
+		}
 	}
     float vectorValueCompare(Vector3 vec1, Vector3 vec2)
     {
@@ -93,6 +109,7 @@ public class RigidBodyCar : MonoBehaviour {
         PathTriggers pt = other.gameObject.GetComponent<PathTriggers>();
         if (pt != null){
             m_goalDir = pt.m_goalDir;
+			m_lastCheckPoint=pt.transform.position;
         }
     }
 

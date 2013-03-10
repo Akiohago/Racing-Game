@@ -37,6 +37,10 @@ public class CarManager : MonoBehaviour {
         float acc = rc.m_acceleration;
         float turnSpeed = rc.m_turnSpeed;
         float brake = rc.m_breakAmount;
+		AudioClip accAudio=rc.m_accelerationAudio;
+		AudioClip decelAudio=rc.m_breakAudio;
+		AudioClip turnAudio=rc.m_turnAudio;
+		
         Destroy(rc);
         foreach (Transform tran in rc.transform)
         {
@@ -50,6 +54,9 @@ public class CarManager : MonoBehaviour {
         ac.m_acceleration = acc;
         ac.m_turnSpeed = turnSpeed;
         ac.m_breakAmount = brake;
+		ac.m_accelerationAudio=accAudio;
+		ac.m_breakAudio=decelAudio;
+		ac.m_turnAudio=turnAudio;
     }
 
 	// Update is called once per frame
