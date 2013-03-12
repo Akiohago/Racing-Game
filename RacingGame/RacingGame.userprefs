@@ -1,10 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/RigidBodyCar.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\CarSelector.cs">
     <Files>
-      <File FileName="Assets/Scripts/aiCar.cs" Line="37" Column="11" />
-      <File FileName="Assets/Scripts/RigidBodyCar.cs" Line="79" Column="6" />
-      <File FileName="Assets/Scripts/CarManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\CarSelector.cs" Line="28" Column="51" />
+      <File FileName="Assets\UI\Start_Menu.cs" Line="12" Column="47" />
+      <File FileName="Assets\Scripts\CarManager.cs" Line="17" Column="39" />
+      <File FileName="Assets\Scripts\deprecated\Car.cs" Line="35" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -2,16 +2,21 @@ using UnityEngine;
 using System.Collections;
 
 public class CarSelector : MonoBehaviour {
-	
+	public Texture2D choosecar2;
 	public GameObject[] m_cars;
+	/*void OnGUI(){
+		GUI.Box(new Rect(0,0,950,475),((choosecar2)));
+		Update ();
+	}*/
 	
 	// Use this for initialization
-	void Start () {
-	
-	}
+	//void Start() {
+
+	//}
 	
 	// Update is called once per frame
-	void Update () {
+	void OnGUI(){
+		GUI.Box(new Rect(0,0,950,475),((choosecar2)));
 		if(Input.GetMouseButtonDown(0)){
 			RaycastHit hitInfo;
 			Ray ray=Camera.mainCamera.ScreenPointToRay(Input.mousePosition);
